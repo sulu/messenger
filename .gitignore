@@ -1,0 +1,12 @@
+.idea
+*.iml
+
+/vendor/
+composer.lock
+
+.php-cs-fixer.cache
+.phpunit.result.cache
+.deptrac.cache
+
+/tests/Application/var
+/tests/Application/secrets
