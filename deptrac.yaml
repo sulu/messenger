@@ -1,0 +1,66 @@
+parameters:
+    paths:
+        - src
+
+    layers:
+        # Infrastructure
+        - name: Vendor Infrastructure
+          collectors:
+              - type: className
+                regex: ^Redis
+              - type: className
+                regex: .*EntityManager.*
+              - type: className
+                regex: .*EntityRepository.*
+              - type: className
+                regex: .*ObjectManager.*
+              - type: className
+                regex: .*ObjectRepository.*
+
+        # Layers
+        - name: UserInterface
+          collectors:
+              - type: directory
+                regex: UserInterface/.*
+        - name: Infrastructure
+          collectors:
+              - type: directory
+                regex: Infrastructure/.*
+        - name: Application
+          collectors:
+              - type: directory
+                regex: Application\/((?!ProcessManager).*)/.*
+        - name: ProcessManager
+          collectors:
+              - type: directory
+                regex: Application/ProcessManager/.*
+        - name: Domain
+          collectors:
+              - type: directory
+                regex: Code\/Domain\/((?!Event).*)\/.* # events are excluded because they are accessible by all
+        - name: Event
+          collectors:
+              - type: directory
+                regex: Code\/Domain\/Event\/.*
+
+    ruleset:
+        # Ruleset
+        UserInterface:
+            - Application
+            - Domain
+            - Infrastructure
+        Infrastructure:
+            - Vendor Infrastructure
+            - Application
+            - Domain
+        Application:
+            - Domain
+            - Event
+        ProcessManager:
+            - Domain
+            - Application
+            # All Events:
+            #- OtherContext Event
+        Domain: ~
+        Event:
+            - Domain

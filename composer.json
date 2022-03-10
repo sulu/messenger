@@ -1,0 +1,105 @@
+{
+    "name": "sulu/messenger",
+    "description": "This library provides the stamps, middlewares and the sulu message bus.",
+    "license": "proprietary",
+    "type": "sulu-bundle",
+    "require": {
+        "php": "8.0.* || 8.1.*",
+        "doctrine/dbal": "^3.3",
+        "doctrine/doctrine-bundle": "^2.5",
+        "doctrine/orm": "^2.11",
+        "symfony/config": "^5.4 || ^6.0",
+        "symfony/dependency-injection": "^5.4 || ^6.0",
+        "symfony/doctrine-bridge": "^5.4 || ^6.0",
+        "symfony/framework-bundle": "^5.4 || ^6.0",
+        "symfony/http-kernel": "^5.4 || ^6.0",
+        "symfony/messenger": "^5.4 || ^6.0"
+    },
+    "require-dev": {
+        "coduo/php-matcher": "^6.0",
+        "friendsofphp/php-cs-fixer": "^3.6",
+        "handcraftedinthealps/code-coverage-checker": "^0.2.5",
+        "jangregor/phpstan-prophecy": "^1.0",
+        "nunomaduro/collision": "^5.0 || ^6.0",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/phpstan": "^1.4",
+        "phpstan/phpstan-doctrine": "^1.2",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpstan/phpstan-symfony": "^1.1",
+        "phpstan/phpstan-webmozart-assert": "^1.0",
+        "phpunit/phpunit": "^9.5",
+        "qossmic/deptrac-shim": "^0.19.3",
+        "rector/rector": "^0.12.16",
+        "schranz/test-generator": "^0.3",
+        "symfony/browser-kit": "^5.4 || ^6.0",
+        "symfony/css-selector": "^5.4 || ^6.0",
+        "symfony/debug-bundle": "^5.4 || ^6.0",
+        "symfony/error-handler": "^5.4 || ^6.0",
+        "symfony/phpunit-bridge": "^5.4 || ^6.0",
+        "thecodingmachine/phpstan-strict-rules": "^1.0",
+        "symfony/dotenv": "^5.4 || ^6.0",
+        "symfony/yaml": "^5.4 || ^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sulu\\Messenger\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sulu\\Messenger\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "bootstrap-test-environment": [
+            "@php tests/Application/bin/console cache:clear --env test",
+            "@php tests/Application/bin/console doctrine:database:drop --force --if-exists --env test",
+            "@php tests/Application/bin/console doctrine:database:create --env test",
+            "@php tests/Application/bin/console doctrine:schema:create --env test"
+        ],
+        "test": "@phpunit",
+        "test-with-coverage": "@phpunit --coverage-php Tests/Application/var/reports/coverage.php --coverage-cobertura=Tests/Application/var/cobertura-coverage.xml --coverage-html Tests/Application/var/reports/html --log-junit Tests/Application/var/reports/junit.xml",
+        "check-coverage": [
+            "@php vendor/bin/code-coverage-checker \"Tests/Application/var/reports/coverage.php\" \"line\" \"100.00\" \"src\""
+        ],
+        "lint": [
+            "@php-cs",
+            "@phpstan",
+            "@lint-rector",
+            "@lint-twig",
+            "@lint-yaml",
+            "@lint-container",
+            "@lint-composer",
+            "@lint-doctrine",
+            "@lint-deptrac"
+        ],
+        "phpunit": "@php vendor/bin/phpunit",
+        "phpstan": [
+            "@php tests/Application/bin/console cache:warmup --env=dev",
+            "@php vendor/bin/phpstan analyze"
+        ],
+        "lint-rector": [
+            "@php tests/Application/bin/console cache:warmup --env=dev",
+            "@php vendor/bin/rector process --dry-run"
+        ],
+        "rector": [
+            "@php vendor/bin/rector process"
+        ],
+        "php-cs": "@php vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
+        "php-cs-fix": "@php vendor/bin/php-cs-fixer fix",
+        "lint-composer": "@composer validate --no-check-publish --strict",
+        "lint-yaml": "@php tests/Application/bin/console lint:yaml tests/Application/config --parse-tags",
+        "lint-deptrac": "@php vendor/bin/deptrac",
+        "lint-container": [
+            "@php tests/Application/bin/console lint:container --env dev",
+            "@php tests/Application/bin/console lint:container --env test",
+            "@php tests/Application/bin/console lint:container --env prod"
+        ],
+        "lint-doctrine": [
+            "@php tests/Application/bin/console doctrine:schema:validate --skip-sync --env prod"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
