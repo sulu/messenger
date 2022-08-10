@@ -12,9 +12,9 @@ use Symfony\Component\Messenger\Stamp\StampInterface;
 class LockStamp implements StampInterface
 {
     public function __construct(
-        private string $resource,
-        private ?float $ttl = 300.0,
-        private bool $autoRelease = true,
+        private readonly string $resource,
+        private readonly ?float $ttl = 300.0,
+        private readonly bool $autoRelease = true,
     ) {
     }
 

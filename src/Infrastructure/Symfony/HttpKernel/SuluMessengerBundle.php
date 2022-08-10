@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sulu\Messenger\Infrastructure\Symfony\HttpKernel;
 
+use RuntimeException;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
@@ -19,7 +20,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class SuluMessengerBundle extends Bundle implements ExtensionInterface, PrependExtensionInterface, ConfigurationExtensionInterface, ConfigurationInterface
 {
-    public const ALIAS = 'sulu_messenger';
+    final public const ALIAS = 'sulu_messenger';
 
     public function getPath(): string
     {
@@ -52,7 +53,7 @@ class SuluMessengerBundle extends Bundle implements ExtensionInterface, PrependE
     public function prepend(ContainerBuilder $container): void
     {
         if (!$container->hasExtension('framework')) {
-            throw new \RuntimeException(\sprintf('The "%s" bundle requires "framework" bundle.', self::ALIAS));
+            throw new RuntimeException(\sprintf('The "%s" bundle requires "framework" bundle.', self::ALIAS));
         }
 
         $container->prependExtensionConfig(

@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use stdClass;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\DoctrineFlushMiddleware;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\EnableFlushStamp;
 use Symfony\Component\Messenger\Envelope;
@@ -66,7 +67,7 @@ class DoctrineFlushMiddlewareTest extends TestCase
 
     private function createEnvelope(): Envelope
     {
-        return new Envelope(new \stdClass());
+        return new Envelope(new stdClass());
     }
 
     private function createStack(): StackMiddleware

@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use stdClass;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockMiddleware;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockStamp;
 use Symfony\Component\Lock\LockFactory;
@@ -75,7 +76,7 @@ class LockMiddlewareTest extends TestCase
 
     private function createEnvelope(): Envelope
     {
-        return new Envelope(new \stdClass());
+        return new Envelope(new stdClass());
     }
 
     private function createStack(): StackMiddleware

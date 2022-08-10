@@ -16,6 +16,6 @@ use Symfony\Component\Dotenv\Dotenv;
 require \dirname(__DIR__) . '/vendor/autoload.php';
 (new Dotenv())->bootEnv(__DIR__ . '/Application/.env');
 
-if (\class_exists(\Locale::class)) {
-    \Locale::setDefault('en');
+if (\class_exists(Locale::class)) {
+    Locale::setDefault('en');
 }

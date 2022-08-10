@@ -12,7 +12,7 @@ use Symfony\Component\Messenger\Middleware\StackInterface;
 class DoctrineFlushMiddleware implements MiddlewareInterface
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 

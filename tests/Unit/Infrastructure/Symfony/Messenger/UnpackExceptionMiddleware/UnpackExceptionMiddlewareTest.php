@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Sulu\Messenger\Tests\Unit\Common\Infrastructure\Symfony\Messenger\UnpackExceptionMiddleware;
 
+use LogicException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\UnpackExceptionMiddleware\UnpackExceptionMiddleware;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
@@ -37,12 +39,12 @@ class UnpackExceptionMiddlewareTest extends TestCase
 
     public function testHandleException(): void
     {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Specific unpacked exception.');
 
         $envelope = $this->createEnvelope();
-        $stack = $this->createStack(function () use ($envelope) {
-            throw new HandlerFailedException($envelope, [new \LogicException('Specific unpacked exception.')]);
+        $stack = $this->createStack(function () use ($envelope): never {
+            throw new HandlerFailedException($envelope, [new LogicException('Specific unpacked exception.')]);
         });
 
         $this->assertSame(
@@ -53,7 +55,7 @@ class UnpackExceptionMiddlewareTest extends TestCase
 
     private function createEnvelope(): Envelope
     {
-        return new Envelope(new \stdClass());
+        return new Envelope(new stdClass());
     }
 
     private function createStack(callable $handler = null): StackMiddleware
