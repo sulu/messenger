@@ -12,7 +12,7 @@ use Symfony\Component\Messenger\Middleware\StackInterface;
 class LockMiddleware implements MiddlewareInterface
 {
     public function __construct(
-        private readonly LockFactory $lockFactory,
+        private LockFactory $lockFactory,
     ) {
     }
 
