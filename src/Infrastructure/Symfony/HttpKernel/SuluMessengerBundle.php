@@ -64,6 +64,7 @@ class SuluMessengerBundle extends Bundle implements ExtensionInterface, PrependE
                         'sulu_message_bus' => [
                             'middleware' => [
                                 'sulu_messenger.unpack_exception_middleware',
+                                'sulu_messenger.lock_middleware',
                                 'sulu_messenger.doctrine_flush_middleware',
                             ],
                         ],

@@ -2,42 +2,54 @@
 
 declare(strict_types=1);
 
-use Rector\Core\Configuration\Option;
+use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
+use Rector\PHPUnit\Set\PHPUnitLevelSetList;
+use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Symfony\Set\SymfonyLevelSetList;
 use Rector\Symfony\Set\SymfonySetList;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator->parameters();
-    $services = $containerConfigurator->services();
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->paths([
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+    ]);
 
-    $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
-    $parameters->set(Option::SKIP, [
+    $rectorConfig->skip([
         __DIR__ . '/tests/Application/var',
         __DIR__ . '/tests/Application/config',
     ]);
-    $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, __DIR__ . '/phpstan.neon');
+
+    $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
 
     // basic rules
-    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
-    $parameters->set(Option::IMPORT_DOC_BLOCKS, true);
-    $parameters->set(Option::IMPORT_SHORT_CLASSES, false);
+    $rectorConfig->importNames();
+    $rectorConfig->importShortClasses();
 
-    $containerConfigurator->import(SetList::CODE_QUALITY);
-    $containerConfigurator->import(LevelSetList::UP_TO_PHP_80);
+    $rectorConfig->sets([
+        SetList::CODE_QUALITY,
+        LevelSetList::UP_TO_PHP_81,
+    ]);
 
     // symfony rules
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(
-        Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER,
-        __DIR__ . '/tests/Application/var/cache/dev/Sulu_Messenger_Tests_Application_KernelDevDebugContainer.xml'
-    );
-    $containerConfigurator->import(SymfonySetList::SYMFONY_CODE_QUALITY);
-    $containerConfigurator->import(SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION);
-    $containerConfigurator->import(SymfonyLevelSetList::UP_TO_SYMFONY_54);
+    $rectorConfig->symfonyContainerPhp(__DIR__ . '/tests/Application/var/cache/dev/Sulu_Messenger_Tests_Application_KernelDevDebugContainer.xml');
 
-    $containerConfigurator->import(DoctrineSetList::DOCTRINE_CODE_QUALITY);
+    $rectorConfig->sets([
+        SymfonySetList::SYMFONY_CODE_QUALITY,
+        SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
+        SymfonyLevelSetList::UP_TO_SYMFONY_54,
+    ]);
+
+    // doctrine rules
+    $rectorConfig->sets([
+        DoctrineSetList::DOCTRINE_CODE_QUALITY,
+    ]);
+
+    // phpunit rules
+    $rectorConfig->sets([
+        PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
+        PHPUnitSetList::PHPUNIT_91,
+    ]);
 };

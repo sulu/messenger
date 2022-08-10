@@ -59,6 +59,25 @@ This way we make sure that the real exception is thrown out by this message
 bus, and a controller can catch or convert it to a specific http status code.
 This middleware is always activated in the sulu message bus.
 
+### LockMiddleware
+
+The `LockMiddleware` will allow to lock specific resources by a given key. This is commonly
+used to prevent concurrent access to the same resource and avoid race conditions.
+The locking can be activated and controlled via the `LockStamp` which supports the same parameters
+as the Symfony `LockFactory` to create the Lock.
+
+```php
+use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockStamp;
+
+$this->handle(new Envelope(new YourMessage(), [new LockStamp('lock-key')]));
+
+# set ttl and autorelease
+$this->handle(new Envelope(new YourMessage(), [new LockStamp('lock-key', 300.0, true)]));
+
+# multiple locks possible all locks need to be acquired before processing the message
+$this->handle(new Envelope(new YourMessage(), [new LockStamp('lock-key-1'), new LockStamp('lock-key-2')]));
+```
+
 ### DoctrineFlushMiddleware
 
 The `DoctrineFlushMiddleware` is a Middleware which let us flush the Doctrine
