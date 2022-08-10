@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sulu\Messenger\Tests\Unit\Common\Infrastructure\Symfony\Messenger\LockMiddleware;
 
-use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
