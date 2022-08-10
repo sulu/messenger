@@ -31,7 +31,7 @@ class DoctrineFlushMiddlewareTest extends TestCase
     {
         $this->entityManager = $this->prophesize(EntityManagerInterface::class);
         $this->middleware = new DoctrineFlushMiddleware(
-            $this->entityManager->reveal()
+            $this->entityManager->reveal(),
         );
     }
 
@@ -45,7 +45,7 @@ class DoctrineFlushMiddlewareTest extends TestCase
 
         $this->assertSame(
             $envelope,
-            $this->middleware->handle($envelope, $stack)
+            $this->middleware->handle($envelope, $stack),
         );
     }
 
@@ -60,7 +60,7 @@ class DoctrineFlushMiddlewareTest extends TestCase
 
         $this->assertSame(
             $envelope,
-            $this->middleware->handle($envelope, $stack)
+            $this->middleware->handle($envelope, $stack),
         );
     }
 

@@ -70,7 +70,7 @@ class SuluMessengerBundle extends Bundle implements ExtensionInterface, PrependE
                         ],
                     ],
                 ],
-            ]
+            ],
         );
     }
 

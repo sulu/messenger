@@ -31,12 +31,12 @@ class LockStampTest extends TestCase
 
     /**
      * @param array{
-     *    resource: string,
-     *    ttl: float|null,
-     *    autoRelease: bool,
+     *    resource?: string,
+     *    ttl?: float|null,
+     *    autoRelease?: bool,
      * } $data
      */
-    public function createInstance($data = []): LockStamp
+    public function createInstance(array $data = []): LockStamp
     {
         return new LockStamp($data['resource'] ?? 'Resource', $data['ttl'] ?? 300.0, $data['autoRelease'] ?? true);
     }

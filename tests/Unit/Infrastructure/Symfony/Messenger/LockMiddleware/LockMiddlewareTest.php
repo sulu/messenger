@@ -33,7 +33,7 @@ class LockMiddlewareTest extends TestCase
     {
         $this->lockFactory = $this->prophesize(LockFactory::class);
         $this->middleware = new LockMiddleware(
-            $this->lockFactory->reveal()
+            $this->lockFactory->reveal(),
         );
     }
 
@@ -47,7 +47,7 @@ class LockMiddlewareTest extends TestCase
 
         $this->assertSame(
             $envelope,
-            $this->middleware->handle($envelope, $stack)
+            $this->middleware->handle($envelope, $stack),
         );
     }
 
@@ -69,7 +69,7 @@ class LockMiddlewareTest extends TestCase
 
         $this->assertSame(
             $envelope,
-            $this->middleware->handle($envelope, $stack)
+            $this->middleware->handle($envelope, $stack),
         );
     }
 

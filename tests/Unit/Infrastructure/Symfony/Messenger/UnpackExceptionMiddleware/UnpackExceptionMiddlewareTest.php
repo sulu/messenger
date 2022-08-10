@@ -31,7 +31,7 @@ class UnpackExceptionMiddlewareTest extends TestCase
 
         $this->assertSame(
             $envelope,
-            $this->middleware->handle($envelope, $stack)
+            $this->middleware->handle($envelope, $stack),
         );
     }
 
@@ -47,7 +47,7 @@ class UnpackExceptionMiddlewareTest extends TestCase
 
         $this->assertSame(
             $envelope,
-            $this->middleware->handle($envelope, $stack)
+            $this->middleware->handle($envelope, $stack),
         );
     }
 
