@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class SuluMessengerBundle extends Bundle implements ExtensionInterface, PrependExtensionInterface, ConfigurationExtensionInterface, ConfigurationInterface
 {
-    final public const ALIAS = 'sulu_messenger';
+    public const ALIAS = 'sulu_messenger';
 
     public function getPath(): string
     {
