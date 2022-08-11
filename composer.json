@@ -13,6 +13,7 @@
         "symfony/doctrine-bridge": "^5.4 || ^6.0",
         "symfony/framework-bundle": "^5.4 || ^6.0",
         "symfony/http-kernel": "^5.4 || ^6.0",
+        "symfony/lock": "^5.4 || ^6.0",
         "symfony/messenger": "^5.4 || ^6.0"
     },
     "require-dev": {
@@ -22,23 +23,24 @@
         "jangregor/phpstan-prophecy": "^1.0",
         "nunomaduro/collision": "^5.0 || ^6.0",
         "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^1.4",
         "phpstan/phpstan-doctrine": "^1.2",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpstan/phpstan-symfony": "^1.1",
         "phpstan/phpstan-webmozart-assert": "^1.0",
         "phpunit/phpunit": "^9.5",
-        "qossmic/deptrac-shim": "^0.19.3",
-        "rector/rector": "^0.12.16",
-        "schranz/test-generator": "^0.3",
+        "qossmic/deptrac-shim": "^0.23.0",
+        "rector/rector": "^0.13.10",
+        "schranz/test-generator": "^0.4",
         "symfony/browser-kit": "^5.4 || ^6.0",
         "symfony/css-selector": "^5.4 || ^6.0",
         "symfony/debug-bundle": "^5.4 || ^6.0",
+        "symfony/dotenv": "^5.4 || ^6.0",
         "symfony/error-handler": "^5.4 || ^6.0",
         "symfony/phpunit-bridge": "^5.4 || ^6.0",
-        "thecodingmachine/phpstan-strict-rules": "^1.0",
-        "symfony/dotenv": "^5.4 || ^6.0",
-        "symfony/yaml": "^5.4 || ^6.0"
+        "symfony/yaml": "^5.4 || ^6.0",
+        "thecodingmachine/phpstan-strict-rules": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -85,6 +87,10 @@
         "rector": [
             "@php vendor/bin/rector process"
         ],
+        "fix": [
+            "@rector",
+            "@php-cs-fix"
+        ],
         "php-cs": "@php vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
         "php-cs-fix": "@php vendor/bin/php-cs-fixer fix",
         "lint-composer": "@composer validate --no-check-publish --strict",
@@ -100,6 +106,9 @@
         ]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     }
 }

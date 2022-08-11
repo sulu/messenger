@@ -2,37 +2,39 @@
 
 declare(strict_types=1);
 
-namespace Sulu\Messenger\Tests\Unit\Common\Infrastructure\Symfony\Messenger\FlushMiddleware;
+namespace Sulu\Messenger\Tests\Unit\Common\Infrastructure\Symfony\Messenger\LockMiddleware;
 
-use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use stdClass;
-use Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\DoctrineFlushMiddleware;
-use Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\EnableFlushStamp;
+use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockMiddleware;
+use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockStamp;
+use Symfony\Component\Lock\LockFactory;
+use Symfony\Component\Lock\LockInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\StackMiddleware;
 
 /**
- * @covers \Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\DoctrineFlushMiddleware
+ * @covers \Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockMiddleware
  */
-class DoctrineFlushMiddlewareTest extends TestCase
+class LockMiddlewareTest extends TestCase
 {
     use ProphecyTrait;
 
-    private DoctrineFlushMiddleware $middleware;
+    private LockMiddleware $middleware;
 
     /**
-     * @var ObjectProphecy<EntityManagerInterface>
+     * @var ObjectProphecy<LockFactory>
      */
-    private ObjectProphecy $entityManager;
+    private ObjectProphecy $lockFactory;
 
     protected function setUp(): void
     {
-        $this->entityManager = $this->prophesize(EntityManagerInterface::class);
-        $this->middleware = new DoctrineFlushMiddleware(
-            $this->entityManager->reveal(),
+        $this->lockFactory = $this->prophesize(LockFactory::class);
+        $this->middleware = new LockMiddleware(
+            $this->lockFactory->reveal(),
         );
     }
 
@@ -41,7 +43,7 @@ class DoctrineFlushMiddlewareTest extends TestCase
         $envelope = $this->createEnvelope();
         $stack = $this->createStack();
 
-        $this->entityManager->flush()
+        $this->lockFactory->createLock(Argument::cetera())
             ->shouldNotBeCalled();
 
         $this->assertSame(
@@ -53,10 +55,17 @@ class DoctrineFlushMiddlewareTest extends TestCase
     public function testHandleWithStamp(): void
     {
         $envelope = $this->createEnvelope();
-        $envelope = $envelope->with(new EnableFlushStamp());
+        $envelope = $envelope->with(new LockStamp('test', 30, true));
         $stack = $this->createStack();
 
-        $this->entityManager->flush()
+        $lock = $this->prophesize(LockInterface::class);
+        $lock->acquire(true)
+            ->shouldBeCalled();
+        $lock->release()
+            ->shouldBeCalled();
+
+        $this->lockFactory->createLock('test', 30, true)
+            ->willReturn($lock->reveal())
             ->shouldBeCalled();
 
         $this->assertSame(
