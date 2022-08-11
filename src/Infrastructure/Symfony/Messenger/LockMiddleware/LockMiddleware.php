@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware;
 
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
+use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
-class LockMiddleware implements MiddlewareInterface
+class LockMiddleware implements MiddlewareInterface, ServiceSubscriberInterface
 {
-    public function __construct(
-        private LockFactory $lockFactory,
-    ) {
+    public function __construct(private ContainerInterface $container)
+    {
     }
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
@@ -25,7 +26,7 @@ class LockMiddleware implements MiddlewareInterface
             $lockStamps = $envelope->all(LockStamp::class);
 
             foreach ($lockStamps as $lockStamp) {
-                $lock = $this->lockFactory->createLock(
+                $lock = $this->container->get('lock.factory')->createLock(
                     $lockStamp->getResource(),
                     $lockStamp->getTtl(),
                     $lockStamp->getAutoRelease(),
@@ -43,5 +44,12 @@ class LockMiddleware implements MiddlewareInterface
         }
 
         return $envelope;
+    }
+
+    public static function getSubscribedServices(): array
+    {
+        return [
+            'lock.factory' => LockFactory::class,
+        ];
     }
 }
