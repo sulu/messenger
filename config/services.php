@@ -13,12 +13,12 @@ return function (ContainerConfigurator $configurator) {
 
     $services->set('sulu_messenger.doctrine_flush_middleware')
         ->class(DoctrineFlushMiddleware::class)
-        ->args([service('doctrine.orm.entity_manager')]);
+        ->tag('container.service_subscriber');
 
     $services->set('sulu_messenger.unpack_exception_middleware')
         ->class(UnpackExceptionMiddleware::class);
 
     $services->set('sulu_messenger.lock_middleware')
         ->class(LockMiddleware::class)
-        ->args([service('lock.factory')]);
+        ->tag('container.service_subscriber');
 };

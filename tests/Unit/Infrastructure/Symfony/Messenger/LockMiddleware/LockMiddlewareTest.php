@@ -11,6 +11,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use stdClass;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockMiddleware;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockStamp;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\LockInterface;
 use Symfony\Component\Messenger\Envelope;
@@ -33,8 +34,11 @@ class LockMiddlewareTest extends TestCase
     protected function setUp(): void
     {
         $this->lockFactory = $this->prophesize(LockFactory::class);
+        $container = new Container();
+        $container->set('lock.factory', $this->lockFactory->reveal());
+
         $this->middleware = new LockMiddleware(
-            $this->lockFactory->reveal(),
+            $container,
         );
     }
 
@@ -71,6 +75,16 @@ class LockMiddlewareTest extends TestCase
         $this->assertSame(
             $envelope,
             $this->middleware->handle($envelope, $stack),
+        );
+    }
+
+    public function testGetSubscribedServices(): void
+    {
+        $this->assertSame(
+            [
+                'lock.factory' => LockFactory::class,
+            ],
+            $this->middleware->getSubscribedServices(),
         );
     }
 

@@ -11,6 +11,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use stdClass;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\DoctrineFlushMiddleware;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\EnableFlushStamp;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\StackMiddleware;
 
@@ -31,8 +32,11 @@ class DoctrineFlushMiddlewareTest extends TestCase
     protected function setUp(): void
     {
         $this->entityManager = $this->prophesize(EntityManagerInterface::class);
+        $container = new Container();
+        $container->set('doctrine.orm.entity_manager', $this->entityManager->reveal());
+
         $this->middleware = new DoctrineFlushMiddleware(
-            $this->entityManager->reveal(),
+            $container,
         );
     }
 
@@ -62,6 +66,16 @@ class DoctrineFlushMiddlewareTest extends TestCase
         $this->assertSame(
             $envelope,
             $this->middleware->handle($envelope, $stack),
+        );
+    }
+
+    public function testGetSubscribedServices(): void
+    {
+        $this->assertSame(
+            [
+                'doctrine.orm.entity_manager' => EntityManagerInterface::class,
+            ],
+            $this->middleware->getSubscribedServices(),
         );
     }
 
