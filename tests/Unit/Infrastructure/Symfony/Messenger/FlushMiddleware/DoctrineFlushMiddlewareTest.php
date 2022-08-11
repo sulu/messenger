@@ -69,6 +69,16 @@ class DoctrineFlushMiddlewareTest extends TestCase
         );
     }
 
+    public function testGetSubscribedServices(): void
+    {
+        $this->assertSame(
+            [
+                'doctrine.orm.entity_manager' => EntityManagerInterface::class,
+            ],
+            $this->middleware->getSubscribedServices(),
+        );
+    }
+
     private function createEnvelope(): Envelope
     {
         return new Envelope(new stdClass());

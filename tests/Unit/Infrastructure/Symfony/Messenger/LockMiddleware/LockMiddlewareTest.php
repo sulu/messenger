@@ -78,6 +78,16 @@ class LockMiddlewareTest extends TestCase
         );
     }
 
+    public function testGetSubscribedServices(): void
+    {
+        $this->assertSame(
+            [
+                'lock.factory' => LockFactory::class,
+            ],
+            $this->middleware->getSubscribedServices(),
+        );
+    }
+
     private function createEnvelope(): Envelope
     {
         return new Envelope(new stdClass());
