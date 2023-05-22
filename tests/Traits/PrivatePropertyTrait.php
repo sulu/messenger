@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Sulu\Messenger\Tests\Traits;
 
-use ReflectionClass;
 use ReflectionException;
-use ReflectionProperty;
 
 trait PrivatePropertyTrait
 {
@@ -15,7 +13,7 @@ trait PrivatePropertyTrait
      */
     protected static function getPrivateProperty(object $object, string $propertyName)
     {
-        $reflection = new ReflectionClass($object);
+        $reflection = new \ReflectionClass($object);
         $propertyReflection = $reflection->getProperty($propertyName);
         $propertyReflection->setAccessible(true);
 
@@ -24,7 +22,7 @@ trait PrivatePropertyTrait
 
     protected static function setPrivateProperty(object $object, string $propertyName, mixed $value): void
     {
-        $reflection = new ReflectionClass($object);
+        $reflection = new \ReflectionClass($object);
         try {
             $propertyReflection = $reflection->getProperty($propertyName);
             self::setValue($propertyReflection, $object, $value);
@@ -37,7 +35,7 @@ trait PrivatePropertyTrait
         }
     }
 
-    private static function setValue(ReflectionProperty $propertyReflection, object $object, mixed $value): void
+    private static function setValue(\ReflectionProperty $propertyReflection, object $object, mixed $value): void
     {
         $propertyReflection->setAccessible(true);
 
