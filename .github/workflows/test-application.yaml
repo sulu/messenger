@@ -31,6 +31,12 @@ jobs:
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
 
+                    - php-version: '8.2'
+                      coverage: true
+                      dependency-versions: 'highest'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
         services:
             mysql:
                 image: mysql:5.7
