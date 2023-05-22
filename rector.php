@@ -26,7 +26,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     // basic rules
     $rectorConfig->importNames();
-    $rectorConfig->importShortClasses();
+    $rectorConfig->importShortClasses(false);
 
     $rectorConfig->sets([
         SetList::CODE_QUALITY,

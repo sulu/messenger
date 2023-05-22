@@ -26,6 +26,12 @@ jobs:
                           SYMFONY_DEPRECATIONS_HELPER: weak
 
                     - php-version: '8.1'
+                      coverage: false
+                      dependency-versions: 'highest'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
+                    - php-version: '8.2'
                       coverage: true
                       dependency-versions: 'highest'
                       env:
