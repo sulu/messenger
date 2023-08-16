@@ -14,7 +14,7 @@
         <img src="https://img.shields.io/github/tag/sulu/messenger.svg" alt="GitHub tag (latest SemVer)">
     </a>
     <a href="https://github.com/sulu/messenger/actions" target="_blank">
-        <img src="https://img.shields.io/github/workflow/status/sulu/messenger/Test%20application.svg?label=test-workflow" alt="Test workflow status">
+        <img src="https://img.shields.io/github/actions/workflow/status/sulu/messenger/test-application.yaml" alt="Test workflow status">
     </a>
     <a href="https://github.com/sulu/sulu/releases" target="_blank">
         <img src="https://img.shields.io/badge/sulu%20compatibility-%3E=2.0-52b6ca.svg" alt="Sulu compatibility">
@@ -55,7 +55,7 @@ return [
 
 The `UnpackExceptionMiddleware` will unpack the `HandlerFailedException` which
 is created by the Symfony [`HandleMessageMiddleware`](https://github.com/symfony/symfony/blob/c7dbcc954366f92f66360f3960a10dc1ef5f2584/src/Symfony/Component/Messenger/Middleware/HandleMessageMiddleware.php#L129).
-This way we make sure that the real exception is thrown out by this message 
+This way we make sure that the real exception is thrown out by this message
 bus, and a controller can catch or convert it to a specific http status code.
 This middleware is always activated in the sulu message bus.
 
