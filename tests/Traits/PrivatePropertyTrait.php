@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Sulu\Messenger\Tests\Traits;
 
-use ReflectionException;
-
 trait PrivatePropertyTrait
 {
     /**
@@ -26,7 +24,7 @@ trait PrivatePropertyTrait
         try {
             $propertyReflection = $reflection->getProperty($propertyName);
             self::setValue($propertyReflection, $object, $value);
-        } catch (ReflectionException) {
+        } catch (\ReflectionException) {
             $parent = $reflection->getParentClass();
             if ($parent) {
                 $propertyReflection = $parent->getProperty($propertyName);
