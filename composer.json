@@ -23,7 +23,6 @@
         "friendsofphp/php-cs-fixer": "^3.6",
         "handcraftedinthealps/code-coverage-checker": "^0.2.5",
         "jangregor/phpstan-prophecy": "^1.0",
-        "nunomaduro/collision": "^5.0 || ^6.0",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^1.4",
