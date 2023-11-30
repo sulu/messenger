@@ -6,7 +6,6 @@
          backupGlobals="false"
          colors="true"
          bootstrap="tests/bootstrap.php"
-         printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"
          forceCoversAnnotation="true"
 >
     <php>

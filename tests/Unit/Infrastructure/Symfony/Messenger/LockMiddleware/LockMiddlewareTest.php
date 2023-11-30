@@ -12,7 +12,7 @@ use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockMiddlewar
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockStamp;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Lock\LockFactory;
-use Symfony\Component\Lock\LockInterface;
+use Symfony\Component\Lock\SharedLockInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\StackMiddleware;
 
@@ -61,7 +61,7 @@ class LockMiddlewareTest extends TestCase
         $envelope = $envelope->with(new LockStamp('test', 30, true));
         $stack = $this->createStack();
 
-        $lock = $this->prophesize(LockInterface::class);
+        $lock = $this->prophesize(SharedLockInterface::class);
         $lock->acquire(true)
             ->shouldBeCalled();
         $lock->release()
