@@ -17,12 +17,17 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/tests',
     ]);
 
+    $rectorConfig->phpstanConfigs([
+        __DIR__ . '/phpstan.dist.neon',
+        // rector does not load phpstan extension automatically so require them manually here:
+        __DIR__ . '/vendor/phpstan/phpstan-doctrine/extension.neon',
+        __DIR__ . '/vendor/phpstan/phpstan-symfony/extension.neon',
+    ]);
+
     $rectorConfig->skip([
         __DIR__ . '/tests/Application/var',
         __DIR__ . '/tests/Application/config',
     ]);
-
-    $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
 
     // basic rules
     $rectorConfig->importNames();
@@ -30,7 +35,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->sets([
         SetList::CODE_QUALITY,
-        LevelSetList::UP_TO_PHP_80,
+        // LevelSetList::UP_TO_PHP_80,
     ]);
 
     // symfony rules
@@ -39,7 +44,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
         SymfonySetList::SYMFONY_CODE_QUALITY,
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
-        SymfonyLevelSetList::UP_TO_SYMFONY_54,
+        // SymfonyLevelSetList::UP_TO_SYMFONY_54,
     ]);
 
     // doctrine rules
@@ -49,7 +54,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     // phpunit rules
     $rectorConfig->sets([
-        PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
-        PHPUnitSetList::PHPUNIT_91,
+        // PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
+        // PHPUnitSetList::PHPUNIT_91,
     ]);
 };

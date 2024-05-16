@@ -22,7 +22,7 @@ class DoctrineFlushMiddleware implements MiddlewareInterface, ServiceSubscriberI
         $envelope = $stack->next()->handle($envelope, $stack);
 
         // flush unit-of-work to the database after the root message was handled successfully
-        if (!empty($envelope->all(EnableFlushStamp::class))) {
+        if ([] !== $envelope->all(EnableFlushStamp::class)) {
             $this->container->get('doctrine.orm.entity_manager')->flush();
         }
 
