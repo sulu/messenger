@@ -10,3 +10,5 @@ composer.lock
 
 /tests/Application/var
 /tests/Application/secrets
+
+phpstan.neon

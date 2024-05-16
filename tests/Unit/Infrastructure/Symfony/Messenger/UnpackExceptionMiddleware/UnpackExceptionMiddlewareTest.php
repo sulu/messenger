@@ -56,7 +56,7 @@ class UnpackExceptionMiddlewareTest extends TestCase
         return new Envelope(new \stdClass());
     }
 
-    private function createStack(callable $handler = null): StackMiddleware
+    private function createStack(?callable $handler = null): StackMiddleware
     {
         if (!$handler) {
             return new StackMiddleware([]);
