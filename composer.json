@@ -1,7 +1,7 @@
 {
     "name": "sulu/messenger",
     "description": "This library provides the stamps, middlewares and the sulu message bus.",
-    "license": "proprietary",
+    "license": "MIT",
     "type": "sulu-bundle",
     "require": {
         "php": "8.0.* || 8.1.* || 8.2.* || 8.3.* || 8.4.*",
