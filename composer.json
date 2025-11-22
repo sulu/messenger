@@ -4,7 +4,7 @@
     "license": "MIT",
     "type": "sulu-bundle",
     "require": {
-        "php": "8.0.* || 8.1.* || 8.2.* || 8.3.* || 8.4.*",
+        "php": "8.0.* || 8.1.* || 8.2.* || 8.3.* || 8.4.* || 8.5.*",
         "doctrine/dbal": "^2.13 || ^3.0 || ^4.0",
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/orm": "^2.11 || ^3.0",
