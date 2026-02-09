@@ -41,7 +41,7 @@ class UnpackExceptionMiddlewareTest extends TestCase
         $this->expectExceptionMessage('Specific unpacked exception.');
 
         $envelope = $this->createEnvelope();
-        $stack = $this->createStack(function () use ($envelope): never {
+        $stack = $this->createStack(static function () use ($envelope): never {
             throw new HandlerFailedException($envelope, [new \LogicException('Specific unpacked exception.')]);
         });
 

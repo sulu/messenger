@@ -22,8 +22,8 @@
 </p>
 <br/>
 
-This library provides the stamps and middlewares which configures the sulu message bus.
-It can be used independently in any symfony installation.
+This library provides the stamps and middlewares which configures the Sulu message bus.
+It can be used independently in any Symfony installation.
 
 ## Installation
 
@@ -57,7 +57,7 @@ The `UnpackExceptionMiddleware` will unpack the `HandlerFailedException` which
 is created by the Symfony [`HandleMessageMiddleware`](https://github.com/symfony/symfony/blob/c7dbcc954366f92f66360f3960a10dc1ef5f2584/src/Symfony/Component/Messenger/Middleware/HandleMessageMiddleware.php#L129).
 This way we make sure that the real exception is thrown out by this message
 bus, and a controller can catch or convert it to a specific http status code.
-This middleware is always activated in the sulu message bus.
+This middleware is always activated in the Sulu message bus.
 
 ### LockMiddleware
 
@@ -78,6 +78,8 @@ $this->handle(new Envelope(new YourMessage(), [new LockStamp('lock-key', 300.0, 
 $this->handle(new Envelope(new YourMessage(), [new LockStamp('lock-key-1'), new LockStamp('lock-key-2')]));
 ```
 
+This middleware is always activated in the Sulu message bus.
+
 ### DoctrineFlushMiddleware
 
 The `DoctrineFlushMiddleware` is a Middleware which let us flush the Doctrine
@@ -89,4 +91,4 @@ use Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\EnableFlushS
 $this->handle(new Envelope(new YourMessage(), [new EnableFlushStamp()]));
 ```
 
-This middleware is always activated in the sulu message bus.
+This middleware is always activated in the Sulu message bus.
