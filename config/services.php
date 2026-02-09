@@ -8,7 +8,7 @@ use Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\DoctrineFlus
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockMiddleware;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\UnpackExceptionMiddleware\UnpackExceptionMiddleware;
 
-return function (ContainerConfigurator $configurator) {
+return static function (ContainerConfigurator $configurator) {
     $services = $configurator->services();
 
     $services->set('sulu_messenger.doctrine_flush_middleware')
