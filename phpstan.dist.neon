@@ -6,6 +6,7 @@ parameters:
     level: max
     excludePaths:
         - %currentWorkingDirectory%/vendor/*
+        - %currentWorkingDirectory%/tests/Application/config/reference.php
         - %currentWorkingDirectory%/tests/Application/var/*
     doctrine:
         objectManagerLoader: tests/phpstan/object-manager.php
