@@ -78,6 +78,8 @@ $this->handle(new Envelope(new YourMessage(), [new LockStamp('lock-key', 300.0, 
 $this->handle(new Envelope(new YourMessage(), [new LockStamp('lock-key-1'), new LockStamp('lock-key-2')]));
 ```
 
+This middleware is always activated in the sulu message bus.
+
 ### DoctrineFlushMiddleware
 
 The `DoctrineFlushMiddleware` is a Middleware which let us flush the Doctrine
