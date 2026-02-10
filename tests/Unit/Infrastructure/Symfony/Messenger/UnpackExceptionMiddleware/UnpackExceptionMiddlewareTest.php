@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sulu\Messenger\Tests\Unit\Common\Infrastructure\Symfony\Messenger\UnpackExceptionMiddleware;
+namespace Sulu\Messenger\Tests\Unit\Infrastructure\Symfony\Messenger\UnpackExceptionMiddleware;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Sulu\Messenger\Infrastructure\Symfony\Messenger\UnpackExceptionMiddleware\UnpackExceptionMiddleware;
 use Symfony\Component\Messenger\Envelope;
@@ -15,6 +16,7 @@ use Symfony\Component\Messenger\Middleware\StackMiddleware;
 /**
  * @covers \Sulu\Messenger\Infrastructure\Symfony\Messenger\UnpackExceptionMiddleware\UnpackExceptionMiddleware
  */
+#[CoversClass(UnpackExceptionMiddleware::class)]
 class UnpackExceptionMiddlewareTest extends TestCase
 {
     private UnpackExceptionMiddleware $middleware;

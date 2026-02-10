@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Sulu\Messenger\Tests\Unit\Common\Infrastructure\Symfony\Messenger\FlushMiddleware;
+namespace Sulu\Messenger\Tests\Unit\Infrastructure\Symfony\Messenger\LockMiddleware;
 
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -17,6 +18,7 @@ use Symfony\Component\Messenger\Middleware\StackMiddleware;
 /**
  * @covers \Sulu\Messenger\Infrastructure\Symfony\Messenger\FlushMiddleware\DoctrineFlushMiddleware
  */
+#[CoversClass(DoctrineFlushMiddleware::class)]
 class DoctrineFlushMiddlewareTest extends TestCase
 {
     use ProphecyTrait;
