@@ -27,6 +27,7 @@ if (!\class_exists(Application::class)) {
 
 $input = new ArgvInput();
 if (null !== $env = $input->getParameterOption(['--env', '-e'], null, true)) {
+    // @phpstan-ignore-next-line binaryOp.invalid
     \putenv('APP_ENV=' . $_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = $env);
 }
 
@@ -44,6 +45,7 @@ if ($_SERVER['APP_DEBUG']) {
     }
 }
 
+// @phpstan-ignore-next-line argument.type
 $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
 $application = new Application($kernel);
 $application->run($input);

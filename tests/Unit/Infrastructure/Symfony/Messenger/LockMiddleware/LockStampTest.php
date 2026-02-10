@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware;
+namespace Sulu\Messenger\Tests\Unit\Infrastructure\Symfony\Messenger\LockMiddleware;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockStamp;
 
 /**
  * @covers \Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockStamp
  */
+#[CoversClass(LockStamp::class)]
 class LockStampTest extends TestCase
 {
     public function testGetResource(): void

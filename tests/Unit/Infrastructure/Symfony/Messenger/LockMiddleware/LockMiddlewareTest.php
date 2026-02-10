@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sulu\Messenger\Tests\Unit\Common\Infrastructure\Symfony\Messenger\LockMiddleware;
+namespace Sulu\Messenger\Tests\Unit\Infrastructure\Symfony\Messenger\LockMiddleware;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -19,6 +20,7 @@ use Symfony\Component\Messenger\Middleware\StackMiddleware;
 /**
  * @covers \Sulu\Messenger\Infrastructure\Symfony\Messenger\LockMiddleware\LockMiddleware
  */
+#[CoversClass(LockMiddleware::class)]
 class LockMiddlewareTest extends TestCase
 {
     use ProphecyTrait;

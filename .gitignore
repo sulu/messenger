@@ -8,7 +8,6 @@ composer.lock
 .phpunit.result.cache
 .deptrac.cache
 
-/tests/Application/config/reference.php
 /tests/Application/var
 /tests/Application/secrets
 
