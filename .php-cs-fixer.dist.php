@@ -5,7 +5,8 @@ declare(strict_types=1);
 $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__)
     ->exclude(['tests/Application/var'])
-    ->notName('bundles.php');
+    ->notName('bundles.php')
+    ->notName('reference.php');
 
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)

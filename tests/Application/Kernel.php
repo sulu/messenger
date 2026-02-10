@@ -39,6 +39,7 @@ class Kernel extends BaseKernel
         ];
 
         foreach ($bundles as $class => $envs) {
+            // @phpstan-ignore-next-line offsetAccess.invalidOffset
             if ($envs[$this->environment] ?? $envs['all'] ?? false) {
                 yield new $class();
             }
