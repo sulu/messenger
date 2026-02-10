@@ -15,7 +15,7 @@ class UnpackExceptionMiddleware implements MiddlewareInterface
     {
         try {
             $envelope = $stack->next()->handle($envelope, $stack);
-        } catch (HandlerFailedException $exception) { // @phpstan-ignore-line
+        } catch (HandlerFailedException $exception) {
             throw $exception->getPrevious(); // @phpstan-ignore-line
         }
 
