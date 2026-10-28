@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 use Symfony\Component\Dotenv\Dotenv;
 
-require \dirname(__DIR__) . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 (new Dotenv())->bootEnv(__DIR__ . '/Application/.env');
 
 if (\class_exists(Locale::class)) {
