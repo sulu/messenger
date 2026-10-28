@@ -46,6 +46,7 @@ jobs:
                     - php-version: '8.6'
                       coverage: false
                       dependency-versions: 'highest'
+                      composer-options: '--ignore-platform-reqs'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: weak
 
